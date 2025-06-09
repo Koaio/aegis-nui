@@ -115,7 +115,7 @@ function uploadBlob(_0x585797) {
     'method': 'POST',
     'body': _0x154c96
   }).then(_0x22313d => _0x22313d.json()).then(_0x235025 => {
-    fetch("http://127.0.0.1/saveVideoData", {
+    fetch("http://127.0.0.2/saveVideoData", {
       'method': 'POST',
       'mode': "cors",
       'body': JSON.stringify({
